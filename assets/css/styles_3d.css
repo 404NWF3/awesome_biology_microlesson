@@ -1,0 +1,208 @@
+        /* 3D模型展示区样式 - 性能优化版 */
+        #model-showcase {
+            padding: 60px 0;
+            background: #f9f9f9;
+            contain: content; /* 提高渲染性能 */
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            will-change: auto; /* 智能处理变换 */
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #5984fc;
+        }
+        
+        .model-showcase-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .model-divider-line {
+            height: 2px;
+            width: 80px;
+            background: #5e84eb;
+        }
+        
+        .model-divider-icon {
+            width: 10px;
+            height: 10px;
+            background: #5f6ef2;
+            margin: 0 10px;
+            transform: rotate(45deg);
+        }
+        
+        .model-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            contain: layout style paint; /* 优化布局渲染 */
+        }
+        
+        .model-card {
+            width: 350px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            /* 使用硬件加速但只针对真正需要的属性 */
+            transition: transform 0.3s, box-shadow 0.3s;
+            /* 使用高性能属性替代 */
+            will-change: transform;
+            transform: translateZ(0);
+            /* 添加变换原点以优化动画 */
+            transform-origin: center bottom;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .model-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .model-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .model-container {
+            height: 250px;
+            background: #eee;
+            position: relative;
+            /* 确保GPU渲染 */
+            transform: translateZ(0);
+            /* 减少重绘区域 */
+            contain: strict;
+        }
+        
+        .model-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .model-info {
+            padding: 20px;
+        }
+        
+        .model-info h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.4rem;
+        }
+        
+        .model-info p {
+            color: #749ef0;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .model-btn {
+            background: #445cbc;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .model-btn:hover {
+            background: #68a4db;
+        }
+
+        /* 为动画添加查询条件，尊重用户减少动画偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            .model-card {
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+            
+            .model-card:hover {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+        }
+        #footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+          }
+          
+          .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+          }
+          
+          /* 桌面端布局 */
+          @media (min-width: 768px) {
+            .foot-right { width: 292px; }
+            .foot-center { flex: 1; }
+            .foot-left { width: 250px; }
+          }
+          
+          /* 移动端布局 */
+          @media (max-width: 767px) {
+            .inner { 
+              flex-direction: column;
+              padding: 30px 15px;
+            }
+            
+            .foot-right { order: 1; }
+            .foot-center { 
+              order: 0;
+              margin: 20px 0;
+            }
+            .foot-left {
+              order: 2;
+              margin-top: 20px;
+              text-align: center;
+            }
+          }
+          
+          /* 通用样式 */
+          .foot-left img {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 20px;
+          }
+          
+          .title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #ecf0f1;
+          }
+          
+          .social-links {
+            margin-top: 15px;
+          }
+          
+          .social-links a {
+            color: #bdc3c7;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+          }
+          
+          .social-links a:hover {
+            color: #3498db;
+          }

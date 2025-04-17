@@ -1,0 +1,162 @@
+/* Animation styles for index.html */
+
+/* 1. Background image animation from bottom-right to top-left */
+#home {
+    position: relative;
+    overflow: hidden;
+    background-image: none !important; /* Override the background image */
+}
+
+#home::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/background2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 0;
+    transform: scale(1.2) translate(5%, 5%);
+    transition: opacity 1.5s ease-out, transform 2s ease-out;
+}
+
+#home.animate-background::after {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+}
+
+/* 2. H1 title "fade in" animation - removed floating effect */
+#home h1 {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    position: relative;
+    z-index: 2;
+}
+
+#home h1.animate-title {
+    opacity: 1;
+    transform: translateY(0);
+    /* Removed the floating animation */
+}
+
+/* 3. Start learning button animation */
+.start-learning-btn {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 1s ease-out, transform 1s ease-out, background-color 0.3s, box-shadow 0.3s;
+    transition-delay: 0.5s;
+    position: relative;
+    z-index: 2;
+}
+
+.start-learning-btn.animate-button {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Ensure feature grid is above background */
+.feature-grid {
+    position: relative;
+    z-index: 2;
+}
+
+/* Navigation bar animation */
+header {
+    position: fixed;
+    width: 100%;
+    top: -80px; /* Initially hidden above the viewport */
+    z-index: 1000;
+    transition: top 0.2s ease-out; /* Faster transition for quicker appearance */
+    background-color: var(--card-background, #ffffff);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 60px; /* Fixed height for the header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header.visible {
+    top: 0; /* Shown when scrolled */
+}
+
+/* Ensure proper spacing for the first section when header becomes visible */
+body {
+    padding-top: 0; /* No padding initially */
+    transition: padding-top 0.2s ease-out; /* Match header transition speed */
+}
+
+body.header-visible {
+    padding-top: 60px; /* Add padding when header is visible */
+} 
+#footer {
+    background: #2c3e50;
+    color: white;
+    padding: 40px 20px;
+  }
+  
+  .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  /* 桌面端布局 */
+  @media (min-width: 768px) {
+    .foot-right { width: 292px; }
+    .foot-center { flex: 1; }
+    .foot-left { width: 250px; }
+  }
+  
+  /* 移动端布局 */
+  @media (max-width: 767px) {
+    .inner { 
+      flex-direction: column;
+      padding: 30px 15px;
+    }
+    
+    .foot-right { order: 1; }
+    .foot-center { 
+      order: 0;
+      margin: 20px 0;
+    }
+    .foot-left {
+      order: 2;
+      margin-top: 20px;
+      text-align: center;
+    }
+  }
+  
+  /* 通用样式 */
+  .foot-left img {
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ecf0f1;
+  }
+  
+  .social-links {
+    margin-top: 15px;
+  }
+  
+  .social-links a {
+    color: #bdc3c7;
+    margin: 0 10px;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+  }
+  
+  .social-links a:hover {
+    color: #3498db;
+  }

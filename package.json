@@ -1,0 +1,15 @@
+{
+  "name": "final",
+  "version": "1.0.0",
+  "description": "本项目是一个交互式的高中生物学微课学习平台，围绕\"神经体液调节共同维持稳态\"主题，为学生提供丰富的学习资源和互动体验。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

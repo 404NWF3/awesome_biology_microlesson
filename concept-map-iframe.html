@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高中生物学微课 - 概念图构建</title>
+    <link rel="stylesheet" href="assets/css/styles_concept.css">
+    <style>
+        body {
+            background-color: #fffcd8;
+        }
+        
+        #introduction_profile starttart{
+            background-color: #fffcd8;
+        }
+        
+        #model-showcase {
+            background-color: #fffcd8;
+        }
+
+        .concept-map-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex: 0 0 180px;
+        }
+        
+        
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            flex: 1 1 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        .concept-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .concept-tag {
+            background: #e9ecef;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .concept {
+            border-left: 3px solid #4CAF50;
+        }
+        
+        .relation {
+            border-left: 3px solid #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航菜单 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">主页</a></li>
+                <li><a href="pre-test.html">课前练习</a></li>
+                <li><a href="animation/knowledge-tree.html">课程动画</a></li>
+                <li><a href="concept-map-iframe.html" class="active">概念图构建</a></li>
+                <li><a href="post-test.html">课后习题</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 概念图构建内容 -->
+    <section id="concept-map">
+        <h1>概念图构建</h1>
+        <div class="concept-map-container">
+            <div class="instructions">
+                <h2>使用说明</h2>
+                <p>您可以使用下面的绘图工具创建生物学概念图。这是一个功能完整的Excalidraw实例，支持自由绘制、添加文本和形状。</p>
+                <h3>本节课重要概念</h3>
+                <div class="concept-list">
+                    <div class="concept-tag concept">下丘脑</div>
+                    <div class="concept-tag concept">垂体</div>
+                    <div class="concept-tag concept">甲状腺</div>
+                    <div class="concept-tag concept">皮肤</div>
+                    <div class="concept-tag concept">温度传感器</div>
+                    <div class="concept-tag concept">立毛肌</div>
+                    <div class="concept-tag concept">ATP</div>
+                    <div class="concept-tag relation">神经递质</div>
+                    <div class="concept-tag relation">促甲状腺释放激素</div>
+                    <div class="concept-tag relation">促甲状腺激素</div>
+                    <div class="concept-tag relation">甲状腺激素</div>
+                </div>
+                <p><strong>提示：</strong> 使用工具栏中的保存按钮保存您的工作，下次访问时可以使用导入功能恢复。</p>
+            </div>
+            
+            <div class="iframe-container">
+                <!-- 嵌入Excalidraw -->
+                <iframe src="https://excalidraw.com/" allow="clipboard-read; clipboard-write" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+</body>
+<!--网页底部的设计 -->
+<footer id="footer" class="footer">
+    <div class="inner">
+      <!-- 右侧内容 -->
+      <div class="foot-right mod">
+        <div class="tt">
+          <h3 class="title">上海财经大学</h3>
+        </div>
+      </div>
+  
+      <!-- 中部内容 -->
+      <div class="foot-center">
+        <p>© 2025 神“智”妙液——神经体液调节共同维持稳态</p>
+        <p>张芳宇 王一羽 倪伟丰</p>
+      </div>
+  
+      <!-- 左侧内容 -->
+      <div class="foot-left">
+        <img src="/assets/images/logo.png" alt="公司Logo">
+        <div class="social-links">
+          <a href="#"><i class="fab fa-weixin"></i></a>
+          <a href="#"><i class="fab fa-weibo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html> 

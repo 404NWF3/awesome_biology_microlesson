@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- 更新viewport设置，移除重复并添加更全面的控制 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, viewport-fit=cover">
+    
+    <!-- 添加Windows特定的配置 -->
+    <meta name="msapplication-TileColor" content="#1d2986">
+    <meta name="theme-color" content="#1d2986">
+    
+    <!-- 添加PWA支持 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <meta name="description" content="HYIP Investment is a modern presentation HTML5 Business HTML Template.">
+    <meta name="author" content="creative-wp">
+
+    <title>高中生物学微课 - 主页</title>
+    
+    <!-- 添加favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+    
+    <link rel="stylesheet" href="assets/css/coze.css"/>
+    <!-- 关键CSS内联加载，减少阻塞时间 -->
+    <style>
+        /* 基础预加载器样式 */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        body {
+            margin: 0;
+            background-color: #fffcd8;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+    </style>
+    
+    <!-- 延迟加载非关键CSS -->
+    <link rel="preload" href="assets/css/styles_index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/styles_index.css"></noscript>
+    
+    <link rel="preload" href="assets/css/styles_3d.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/styles_3d.css"></noscript>
+    
+    <link rel="preload" href="assets/css/animations.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/animations.css"></noscript>
+
+    <style>
+        body {
+            background-color: #fffcd8;
+        }
+        
+        #introduction_profile starttart{
+            background-color: #fffcd8;
+        }
+        
+        #model-showcase {
+            background-color: #fffcd8;
+        }
+        
+        .section-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-container:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+        }
+    </style>
+    
+    
+    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/responsive.js" defer></script>
+
+    <!-- 延迟加载Three.js库 -->
+    <script>
+    // 动态加载Three.js相关库
+    function loadThreeJs() {
+        return new Promise((resolve, reject) => {
+            // 加载 Three.js 核心
+            const threeScript = document.createElement('script');
+            threeScript.src = "assets/js/three.min.js";
+            threeScript.async = true;
+            threeScript.onload = function() {
+                // 加载 OrbitControls
+                const orbitScript = document.createElement('script');
+                orbitScript.src = "assets/js/OrbitControls.js";
+                orbitScript.async = true;
+                orbitScript.onload = function() {
+                    // 加载 GLTFLoader
+                    const loaderScript = document.createElement('script');
+                    loaderScript.src = "assets/js/GLTFLoader.js";
+                    loaderScript.async = true;
+                    loaderScript.onload = function() {
+                        // 直接解析 - 不再加载外部model-viewer.js
+                        resolve();
+                    };
+                    loaderScript.onerror = reject;
+                    document.body.appendChild(loaderScript);
+                };
+                orbitScript.onerror = reject;
+                document.body.appendChild(orbitScript);
+            };
+            threeScript.onerror = reject;
+            document.body.appendChild(threeScript);
+        });
+    }
+    </script>
+
+    <!-- 添加关键CSS变量 -->
+    <style>
+        :root {
+            --safe-area-inset-top: env(safe-area-inset-top, 0px);
+            --safe-area-inset-right: env(safe-area-inset-right, 0px); 
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-area-inset-left: env(safe-area-inset-left, 0px);
+        }
+        
+        /* 图片和媒体响应式处理 */
+        img, video {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* 响应式图片懒加载支持 */
+        img[loading="lazy"] {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* 避免布局移位 */
+        .img-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-dot"></div>
+        <div class="preloader-dot"></div>
+        <div class="preloader-dot"></div>
+    </div><!-- /preloader-inner -->
+</div><!-- /preloader -->
+
+
+<!-- 导航菜单 -->
+<header>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">生物微课</a>
+            </div>
+            
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">主页</a></li>
+                <li><a href="pre-test.html">课前练习</a></li>
+                <li><a href="animation/knowledge-tree.html">课程动画</a></li>
+                <li><a href="concept-map-iframe.html">概念图构建</a></li>
+                <li><a href="post-test.html">课后习题</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<!-- 主页内容 -->
+<section id="home">
+    <h1>神经体液调节共同维持稳态</h1>
+    <div class="start-learning-container">
+        <button class="start-learning-btn" onclick="location.href='pre-test.html'">
+            开始学习
+        </button>
+    </div>
+    
+    <div class="feature-grid">
+        <div class="feature-card" onclick="location.href='pre-test.html'">
+            <h2>课前练习</h2>
+            <p>通过练习题检验预备知识</p>
+        </div>
+        <div class="feature-card" onclick="location.href='animation/knowledge-tree.html'">
+            <h2>课程动画</h2>
+            <p>观看生动的教学视频</p>
+        </div>
+        <div class="feature-card" onclick="location.href='concept-map-iframe.html'">
+            <h2>概念图构建</h2>
+            <p>构建知识关联，加深理解</p>
+        </div>
+        <div class="feature-card" onclick="location.href='post-test.html'">
+            <h2>课后习题</h2>
+            <p>巩固所学知识</p>
+        </div>
+    </div>
+    
+</section>
+
+<section id="space">
+</section>
+
+<section id="introduction_profile">
+    <div class="intro-container">
+        <h2 class="intro-title">课程简介</h2>
+        <div class="intro-divider">
+            <span class="intro-divider-line"></span>
+            <span class="intro-divider-icon"></span>
+            <span class="intro-divider-line"></span>
+        </div>
+        
+        <div class="intro-content">
+            <div class="intro-feature">
+                <div class="intro-icon intro-icon-1"></div>
+                <div class="intro-text">
+                    <h3>3D模型</h3>
+                    <p>通过3D模型，生动展示神经调节与体液调节如何共同维持体温和水盐平衡，帮助学生直观理解体温调节机制和水盐平衡的动态调节过程。</p>
+                </div>
+            </div>
+            
+            <div class="intro-feature">
+                <div class="intro-icon intro-icon-2"></div>
+                <div class="intro-text">
+                    <h3>AI实时答疑</h3>
+                    <p>嵌入对话大模型，提供实时答疑功能。学生可随时提问，系统即时解答，帮助深入理解复杂概念，如"体温调节的负反馈机制"或"抗利尿激素的作用"。</p>
+                </div>
+            </div>
+            
+            <div class="intro-feature">
+                <div class="intro-icon intro-icon-3"></div>
+                <div class="intro-text">
+                    <h3>概念图构建工具</h3>
+                    <p>提供在线概念图构建工具，帮助学生梳理神经调节和体液调节的关系，通过拖拽组件构建概念图，强化对神经体液调节作用过程的理解。</p>
+                </div>
+            </div>
+            
+            <div class="intro-feature">
+                <div class="intro-icon intro-icon-4"></div>
+                <div class="intro-text">
+                    <h3>智能练习与反馈</h3>
+                    <p>提供练习题与智能评测系统，客观题自动比对，主观题AI评分，详细解析每道题目，并根据学生表现提供个性化学习建议，指出薄弱环节。</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="space">
+</section>
+
+<!-- 3D模型展示区 -->
+<section id="model-showcase">
+    <div class="section-container">
+        <h2 class="section-title" style="color: #1d2986;">3D模型</h2>
+        <div class="model-showcase-divider">
+            <span class="model-divider-line"></span>
+            <span class="model-divider-icon"></span>
+            <span class="model-divider-line"></span>
+        </div>
+        
+        <div class="model-gallery">
+            <!-- 甲状腺模型 -->
+            <div class="model-card">
+                <div class="model-image-container">
+                    <img src="assets/images/thyroid-preview.jpg" alt="甲状腺模型预览图" class="model-preview-image">
+                </div>
+                <div class="model-info">
+                    <h3>甲状腺模型</h3>
+                    <p>甲状腺是人体重要的内分泌腺体，分泌甲状腺素，参与调节人体代谢和体温平衡</p>
+                    <button class="model-btn" data-model="model/jiazhuangxian1.glb" data-title="甲状腺模型" data-description="甲状腺是人体重要的内分泌腺体，位于喉部下方、气管前方的两侧。它呈蝴蝶状，由两个侧叶和连接两侧叶的峡部组成。甲状腺分泌甲状腺素(T4)和三碘甲状腺原氨酸(T3)，这些激素参与调节人体代谢率、生长发育、神经系统功能以及体温维持。甲状腺激素增加产热，提高基础代谢率，在寒冷环境中尤为重要。甲状腺功能异常可导致甲亢或甲减，影响人体正常的代谢和体温调节功能。">查看详情</button>
+                </div>
+            </div>
+            
+            <!-- 丘脑模型 -->
+            <div class="model-card">
+                <div class="model-image-container">
+                    <img src="assets/images/thalamus-preview.jpg" alt="丘脑模型预览图" class="model-preview-image">
+                </div>
+                <div class="model-info">
+                    <h3>丘脑模型</h3>
+                    <p>丘脑是大脑中的一个重要结构，是感觉信息传递的中继站，在神经调节中起关键作用</p>
+                    <button class="model-btn" data-model="model/thalamus.glb" data-title="丘脑模型" data-description="丘脑是位于大脑深部的卵圆形结构，由灰质组成，是感觉信息传递至大脑皮层的中继站。除嗅觉外，几乎所有感觉信息(包括温度、疼痛等)都经过丘脑进行整合和处理后传递到相应的大脑皮层区域。丘脑还包含与体温调节有关的重要神经元，参与感知体温变化并激活相应的调节反应。作为神经体液调节的关键环节，丘脑接收外周温度感受器的信号，并与下丘脑协同工作维持体温恒定。">查看详情</button>
+                </div>
+            </div>
+            
+            <!-- 大脑模型 -->
+            <div class="model-card">
+                <div class="model-image-container">
+                    <img src="assets/images/brain-preview.jpg" alt="大脑模型预览图" class="model-preview-image">
+                </div>
+                <div class="model-info">
+                    <h3>大脑模型</h3>
+                    <p>大脑是神经系统的核心，控制着人体的各种生理活动，包括体温调节和水盐平衡</p>
+                    <button class="model-btn" data-model="model/Tropic 3D brain.glb" data-title="大脑模型" data-description="大脑是人体最复杂的器官，由大脑皮层、基底神经节、边缘系统和脑干等结构组成。在体温调节机制中，下丘脑的视前区含有热敏感神经元，可以对体温升高做出反应；而下丘脑后部则包含冷敏感神经元，对体温降低做出反应。当体温升高时，大脑皮层和下丘脑协同工作，激活出汗和皮肤血管扩张等散热机制；而在体温降低时，则激活肌肉战栗和皮肤血管收缩等产热保温机制。此外，大脑通过控制垂体分泌抗利尿激素(ADH)参与水盐平衡的调节。">查看详情</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 模型详情模态框 -->
+<div id="model-modal" class="model-modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+            <div class="modal-left">
+                <div id="modal-model-container" class="modal-model-container"></div>
+                <div class="model-controls">
+                    <button id="model-zoom-in">放大</button>
+                    <button id="model-zoom-out">缩小</button>
+                    <button id="model-reset">重置视图</button>
+                </div>
+            </div>
+            <div class="modal-right">
+                <h2 id="modal-title"></h2>
+                <div id="modal-description" class="modal-description"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 添加模态框和图片样式 -->
+<style>
+    /* 模型卡片样式优化 */
+    .model-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 20px;
+    }
+    
+    .model-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    .model-image-container {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+        background-color: #f5f5f5;
+    }
+    
+    .model-preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .model-card:hover .model-preview-image {
+        transform: scale(1.05);
+    }
+    
+    .model-info {
+        padding: 15px;
+    }
+    
+    .model-btn {
+        background-color: #1d2986;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-weight: 500;
+        margin-top: 10px;
+    }
+    
+    .model-btn:hover {
+        background-color: #161f65;
+    }
+    
+    /* 模态框样式 */
+    .model-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        overflow: auto;
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        width: 90%;
+        max-width: 1200px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        position: relative;
+        animation: modalFadeIn 0.4s;
+    }
+    
+    @keyframes modalFadeIn {
+        from {opacity: 0; transform: translateY(-30px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    
+    .close-modal {
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #aaa;
+        cursor: pointer;
+        z-index: 10;
+    }
+    
+    .close-modal:hover {
+        color: #333;
+    }
+    
+    .modal-body {
+        display: flex;
+        flex-direction: row;
+        padding: 20px;
+    }
+    
+    @media (max-width: 768px) {
+        .modal-body {
+            flex-direction: column;
+        }
+    }
+    
+    .modal-left {
+        flex: 1;
+        min-height: 400px;
+        max-height: 70vh;
+    }
+    
+    .modal-model-container {
+        width: 100%;
+        height: 100%;
+        min-height: 350px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        position: relative;
+    }
+    
+    .model-controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    
+    .model-controls button {
+        background-color: #1d2986;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .model-controls button:hover {
+        background-color: #161f65;
+    }
+    
+    .modal-right {
+        flex: 1;
+        padding: 0 20px;
+    }
+    
+    #modal-title {
+        color: #1d2986;
+        margin-top: 0;
+        border-bottom: 2px solid #1d2986;
+        padding-bottom: 10px;
+    }
+    
+    .modal-description {
+        line-height: 1.6;
+        font-size: 16px;
+        color: #333;
+    }
+    
+    /* 加载状态和错误提示样式 */
+    .model-loading, .model-error {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 15px 25px;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        border-radius: 8px;
+        font-size: 16px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 5;
+    }
+    
+    .model-error {
+        background-color: rgba(220,53,69,0.9);
+    }
+</style>
+
+<!-- 替换原有的3D模型加载脚本为更高效的方式 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有模型按钮
+    const modelButtons = document.querySelectorAll('.model-btn');
+    const modal = document.getElementById('model-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalModelContainer = document.getElementById('modal-model-container');
+    const closeModal = document.querySelector('.close-modal');
+    const zoomInBtn = document.getElementById('model-zoom-in');
+    const zoomOutBtn = document.getElementById('model-zoom-out');
+    const resetBtn = document.getElementById('model-reset');
+    
+    // 3D模型相关变量
+    let scene, camera, renderer, controls, model;
+    let isModelLoaded = false;
+    let currentModelPath = '';
+    
+    // 打开模态框
+    modelButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modelPath = this.getAttribute('data-model');
+            const title = this.getAttribute('data-title');
+            const description = this.getAttribute('data-description');
+            
+            // 设置模态框内容
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            
+            // 显示模态框
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+            currentModelPath = modelPath;
+            
+            // 更新进度指示器
+            modalModelContainer.innerHTML = '<div class="model-loading">模型加载中...</div>';
+            
+            // 动态加载Three.js并初始化模型
+            if (!isModelLoaded) {
+                loadThreeJs().then(() => {
+                    initThreeScene();
+                    isModelLoaded = true;
+                }).catch(err => {
+                    console.error('加载Three.js失败:', err);
+                    modalModelContainer.innerHTML = '<div class="model-error">模型加载失败，请刷新重试</div>';
+                });
+            } else if (renderer) {
+                // 如果已经加载过Three.js但更换了模型，只加载新模型
+                loadModel(currentModelPath);
+            }
+        });
+    });
+    
+    // 关闭模态框
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; // 恢复背景滚动
+    });
+    
+    // 点击模态框外部关闭
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // 初始化Three.js场景
+    function initThreeScene() {
+        // 创建场景
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf5f5f5);
+        
+        // 创建相机
+        camera = new THREE.PerspectiveCamera(75, modalModelContainer.clientWidth / modalModelContainer.clientHeight, 0.1, 1000);
+        camera.position.z = 5;
+        
+        // 创建渲染器
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(modalModelContainer.clientWidth, modalModelContainer.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        modalModelContainer.innerHTML = '';
+        modalModelContainer.appendChild(renderer.domElement);
+        
+        // 添加控制器
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.25;
+        controls.screenSpacePanning = false;
+        controls.maxPolarAngle = Math.PI / 1.5;
+        
+        // 添加光源
+        // 1. 环境光 - 适当增强
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7); // 增强至0.7
+        scene.add(ambientLight);
+
+        // 2. 主光（Key Light）- 45度角照射
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        keyLight.position.set(1, 1, 1).normalize();
+        keyLight.castShadow = true; // 启用阴影
+        scene.add(keyLight);
+
+        // 3. 补光（Fill Light）- 弱化对比
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        fillLight.position.set(-1, 0.5, 0.5).normalize();
+        scene.add(fillLight);
+
+        // 4. 背光（Back Light）- 突出轮廓
+        const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        backLight.position.set(0, 0.5, -1).normalize();
+        scene.add(backLight);
+        // 加载当前选中的模型
+        loadModel(currentModelPath);
+        
+        // 动画循环
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // 处理窗口大小变化
+        window.addEventListener('resize', onWindowResize);
+    }
+    
+    function onWindowResize() {
+        if (camera && renderer) {
+            camera.aspect = modalModelContainer.clientWidth / modalModelContainer.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(modalModelContainer.clientWidth, modalModelContainer.clientHeight);
+        }
+    }
+    
+    // 加载3D模型
+    function loadModel(modelPath) {
+        if (!THREE || !THREE.GLTFLoader) {
+            console.error('Three.js或GLTFLoader未加载');
+            return;
+        }
+        
+        // 显示加载指示器，即使渲染器存在也要显示加载状态
+        modalModelContainer.innerHTML = '<div class="model-loading">模型加载中...</div>';
+        
+        // 确保渲染器存在并附加到DOM
+        if (renderer && !modalModelContainer.contains(renderer.domElement)) {
+            modalModelContainer.innerHTML = '';
+            modalModelContainer.appendChild(renderer.domElement);
+        }
+        
+        // 移除之前的模型及其资源
+        if (model) {
+            // 遍历并处理所有子对象
+            model.traverse(object => {
+                // 处理几何体
+                if (object.geometry) {
+                    object.geometry.dispose();
+                }
+                
+                // 处理材质
+                if (object.material) {
+                    if (Array.isArray(object.material)) {
+                        object.material.forEach(material => disposeMaterial(material));
+                    } else {
+                        disposeMaterial(object.material);
+                    }
+                }
+            });
+            
+            // 从场景中移除模型
+            scene.remove(model);
+            model = null;
+        }
+        
+        // 辅助函数：处理材质资源
+        function disposeMaterial(material) {
+            // 处理材质的贴图
+            for (const key in material) {
+                if (material[key] && material[key].isTexture) {
+                    material[key].dispose();
+                }
+            }
+            // 处理材质本身
+            material.dispose();
+        }
+        
+        // 创建新的加载器并加载模型
+        const loader = new THREE.GLTFLoader();
+        loader.load(
+            modelPath,
+            function(gltf) {
+                // 确保modalModelContainer包含渲染器元素
+                if (!modalModelContainer.contains(renderer.domElement)) {
+                    modalModelContainer.innerHTML = '';
+                    modalModelContainer.appendChild(renderer.domElement);
+                }
+                
+                model = gltf.scene;
+                
+                // 计算模型包围盒并自动缩放适应视图
+                const box = new THREE.Box3().setFromObject(model);
+                const size = box.getSize(new THREE.Vector3());
+                const center = box.getCenter(new THREE.Vector3());
+                
+                // 重置模型位置
+                model.position.x = -center.x;
+                model.position.y = -center.y;
+                model.position.z = -center.z;
+                
+                // 调整相机位置
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const fov = camera.fov * (Math.PI / 180);
+                let cameraZ = Math.abs(maxDim / Math.sin(fov / 2));
+                
+                camera.position.z = cameraZ * 1.5;
+                
+                // 更新相机和控制器
+                const minZ = box.min.z;
+                const cameraToFarEdge = (minZ < 0) ? -minZ + cameraZ : cameraZ - minZ;
+                
+                camera.far = cameraToFarEdge * 3;
+                camera.updateProjectionMatrix();
+                
+                controls.maxDistance = cameraToFarEdge * 2;
+                controls.target = new THREE.Vector3(0, 0, 0);
+                controls.update();
+                
+                scene.add(model);
+            },
+            function(xhr) {
+                // 进度加载
+                if (xhr.lengthComputable) {
+                    const percent = Math.floor((xhr.loaded / xhr.total) * 100);
+                    if (!modalModelContainer.contains(renderer.domElement)) {
+                        modalModelContainer.innerHTML = `<div class="model-loading">模型加载中... ${percent}%</div>`;
+                    }
+                }
+            },
+            function(error) {
+                console.error('加载模型时出错:', error);
+                modalModelContainer.innerHTML = '<div class="model-error">模型加载失败，请刷新重试</div>';
+            }
+        );
+    }
+    
+    // 放大缩小控制
+    zoomInBtn.addEventListener('click', function() {
+        if (camera && controls) {
+            camera.position.z *= 0.8;
+            controls.update();
+        }
+    });
+    
+    zoomOutBtn.addEventListener('click', function() {
+        if (camera && controls) {
+            camera.position.z *= 1.2;
+            controls.update();
+        }
+    });
+    
+    resetBtn.addEventListener('click', function() {
+        if (controls) {
+            controls.reset();
+        }
+    });
+});
+</script>
+<script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.1.0-beta.1/libs/oversea/index.js"></script>
+<script src="assets/js/coze.js"></script>
+
+</body>
+<!--网页底部的设计 -->
+<footer id="footer" class="footer">
+    <div class="inner">
+      <!-- 右侧内容 -->
+      <div class="foot-right mod">
+        <div class="tt">
+          <h3 class="title">上海财经大学</h3>
+        </div>
+      </div>
+  
+      <!-- 中部内容 -->
+      <div class="foot-center">
+        <p>© 2025 神“智”妙液——神经体液调节共同维持稳态</p>
+        <p>张芳宇 王一羽 倪伟丰</p>
+      </div>
+  
+      <!-- 左侧内容 -->
+      <div class="foot-left">
+        <img src="/assets/images/logo.png" alt="公司Logo">
+        <div class="social-links">
+          <a href="#"><i class="fab fa-weixin"></i></a>
+          <a href="#"><i class="fab fa-weibo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能题目推荐 - 高中生物学微课</title>
+    <link rel="stylesheet" href="assets/css/smart-recommendation.css">
+    <link rel="stylesheet" href="assets/css/preloader.css">
+    <style>
+        /* 可以保留原有的预加载动画样式 */
+        body {
+            background-color: #f8f9fd;
+        }
+        
+        /* 推荐题目卡片样式 */
+        .recommendation-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .recommendation-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .recommendation-item h3 {
+            margin-top: 0;
+            color: var(--primary-color, #3a5a82);
+        }
+        
+        .recommendation-item p {
+            color: var(--text-secondary, #666);
+            margin-bottom: 1rem;
+        }
+        
+        .recommendation-item button {
+            background-color: var(--accent-color, #4caf50);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .recommendation-item button:hover {
+            background-color: var(--accent-color-dark, #388e3c);
+        }
+        
+        .no-recommendations {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/coze.css">
+</head>
+<body>
+    <!-- 预加载动画 -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-dot"></div>
+            <div class="preloader-dot"></div>
+            <div class="preloader-dot"></div>
+        </div>
+    </div>
+
+    <!-- 导航菜单（与主站一致） -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">主页</a></li>
+                <li><a href="post-test.html">返回测试</a></li>
+                <li><a href="smart-recommendation.html" class="active">智能推荐</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主推荐内容区 -->
+    <main class="smart-recommendation-container">
+        <!-- 头部统计信息 -->
+        <div class="recommendation-header">
+            <h2><i class="icon-recommend"></i> 您的个性化推荐</h2>
+            <div class="performance-metrics">
+                <div class="metric-card">
+                    <span class="metric-value" id="accuracy-rate">--%</span>
+                    <span class="metric-label">正确率</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-value" id="weak-points">0</span>
+                    <span class="metric-label">薄弱知识点</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 推荐内容将通过smart-recommendation.js动态加载 -->
+        <div id="recommendation-content">
+            <!-- 推荐题目列表容器 -->
+            <div id="recommendation-list"></div>
+            
+            <!-- 当没有推荐题目时显示 -->
+            <div id="no-recommendations" class="no-recommendations" style="display: none;">
+                <p>暂无推荐题目，请完成更多练习后再来查看！</p>
+                <button onclick="window.location.href='post-test.html'">返回练习</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/smart-recommendation.js"></script>
+    <script>
+        // 预加载处理
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.preloader').classList.add('hidden');
+            }, 800);
+            
+            // 检查是否有来自post-test的跳转
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('from')) {
+                console.log('从测试页面跳转而来');
+                // 可以在这里添加特殊处理
+            }
+        });
+    </script>
+</body>
+<!--网页底部的设计 -->
+<footer id="footer" class="footer">
+    <div class="inner">
+      <!-- 右侧内容 -->
+      <div class="foot-right mod">
+        <div class="tt">
+          <h3 class="title">上海财经大学</h3>
+        </div>
+      </div>
+  
+      <!-- 中部内容 -->
+      <div class="foot-center">
+        <p>© 2025 神“智”妙液——神经体液调节共同维持稳态</p>
+        <p>张芳宇 王一羽 倪伟丰</p>
+      </div>
+  
+      <!-- 左侧内容 -->
+      <div class="foot-left">
+        <img src="/assets/images/logo.png" alt="公司Logo">
+        <div class="social-links">
+          <a href="#"><i class="fab fa-weixin"></i></a>
+          <a href="#"><i class="fab fa-weibo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html>

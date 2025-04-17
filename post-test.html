@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高中生物学微课 - 课后习题</title>
+    <link rel="stylesheet" href="assets/css/styles_test.css">
+    <script src="assets/js/quiz.js" defer></script>
+
+        
+    <style>
+        body {
+            background-color: #fffcd8;
+        }
+        
+        #introduction_profile {
+            background-color: #fffcd8;
+        }
+        
+        #model-showcase {
+            background-color: #fffcd8;
+        }
+        
+        .question-filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f5f7fa;
+            border-radius: 8px;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-group select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .question-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .question-type, .question-difficulty, .question-knowledge, .question-points {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            background: #f0f0f0;
+        }
+        
+        .question-type {
+            background: #e3f2fd;
+            color: #0277bd;
+        }
+        
+        .question-difficulty {
+            background: #fff8e1;
+            color: #ff8f00;
+        }
+        
+        .question-knowledge {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .question-points {
+            background: #f3e5f5;
+            color: #7b1fa2;
+            margin-left: auto;
+        }
+        
+        .upload-container {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .upload-container input[type="file"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .upload-btn {
+            padding: 0.5rem 1rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .upload-btn:hover {
+            background: #0288D1;
+            transform: translateY(-2px);
+        }
+        /* 智能推荐区域新增样式 */
+        #recommendation-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+            display: none; /* 初始隐藏 */
+        }
+
+        .recommendation-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-btn.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: var(--background-color);
+            color: var(--text-primary);
+            border: 1px solid #ddd;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 测试总结增强样式 */
+        .test-summary {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .test-summary h3 {
+            color: #3a5a82;
+            margin-top: 0;
+        }
+        
+        .test-summary p {
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+        
+        .test-summary .congratulations {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .test-summary .good {
+            color: #2196F3;
+            font-weight: bold;
+        }
+        
+        .test-summary .encouragement {
+            color: #FF9800;
+            font-weight: bold;
+        }
+        
+        #view-recommendations {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #view-recommendations:hover {
+            background-color: #388E3C;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- 导航菜单 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">主页</a></li>
+                <li><a href="pre-test.html">课前练习</a></li>
+                <li><a href="animation/knowledge-tree.html">课程动画</a></li>
+                <li><a href="concept-map-iframe.html">概念图构建</a></li>
+                <li><a href="post-test.html" class="active">课后习题</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 课后习题内容 -->
+    <section id="post-test">
+        <h1>课后习题</h1>
+        <div class="test-container">
+
+            
+            <!-- 题型选择器 -->
+            <div class="question-type-selector">
+                <button class="type-btn active" data-type="all">全部题目</button>
+                <button class="type-btn" data-type="choice">选择题</button>
+                <button class="type-btn" data-type="fill">填空题</button>
+                <button class="type-btn" data-type="essay">简答题</button>
+                <button class="type-btn" data-type="completion">综合题</button>
+            </div>
+            
+            <!-- 过滤器 -->
+            <div class="question-filter-container">
+                <!-- 由JavaScript动态添加 -->
+            </div>
+
+            <!-- 习题列表 - 将由JavaScript动态加载 -->
+            <div class="question-list"></div>
+
+            <!-- 测试总结 -->
+            <div id="test-summary" style="display: none;"></div>
+
+            <!-- 提交按钮 -->
+            <div class="submit-container">
+                <div class="submit-container">
+                    <button onclick="submitPostTest()" class="submit-btn">提交并查看推荐</button>
+                    <button onclick="saveProgress()" class="save-btn">保存进度</button>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // 检查URL参数，如果有practice参数，则滚动到该题目位置
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('practice')) {
+                const practiceId = urlParams.get('practice');
+                
+                // 等待题目加载完成
+                setTimeout(() => {
+                    // 查找对应的题目元素
+                    const questionCard = document.querySelector(`.question-card [id$="${practiceId}"]`)?.closest('.question-card');
+                    
+                    if (questionCard) {
+                        // 滚动到题目位置
+                        questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // 高亮显示（添加临时样式）
+                        questionCard.style.boxShadow = '0 0 0 3px #4CAF50';
+                        setTimeout(() => {
+                            questionCard.style.boxShadow = '';
+                        }, 3000);
+                    }
+                }, 500);
+            }
+        });
+    </script>
+</body>
+<!--网页底部的设计 -->
+<footer id="footer" class="footer">
+    <div class="inner">
+      <!-- 右侧内容 -->
+      <div class="foot-right mod">
+        <div class="tt">
+          <h3 class="title">上海财经大学</h3>
+        </div>
+      </div>
+  
+      <!-- 中部内容 -->
+      <div class="foot-center">
+        <p>© 2025 神“智”妙液——神经体液调节共同维持稳态</p>
+        <p>张芳宇 王一羽 倪伟丰</p>
+      </div>
+  
+      <!-- 左侧内容 -->
+      <div class="foot-left">
+        <img src="/assets/images/logo.png" alt="公司Logo">
+        <div class="social-links">
+          <a href="#"><i class="fab fa-weixin"></i></a>
+          <a href="#"><i class="fab fa-weibo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html>

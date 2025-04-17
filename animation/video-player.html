@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频播放器</title>
+    <link rel="stylesheet" href="../assets/css/video_player.css">
+    <link rel="stylesheet" href="assets/css/coze.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">主页</a></li>
+                <li><a href="../pre-test.html">课前练习</a></li>
+                <li><a href="knowledge-tree.html" class="active">课程动画</a></li>
+                <li><a href="../concept-map-iframe.html">概念图构建</a></li>
+                <li><a href="../post-test.html">课后习题</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="video-container">
+            <div class="video-title">
+                <h1 id="video-title">视频播放</h1>
+            </div>
+            <div class="video-wrapper">
+                <video id="video-player" controls>
+                    <source id="video-source" src="" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
+            <div id="video-status" class="video-status"></div>
+        </div>
+        <a href="knowledge-tree.html" class="back-btn">返回知识树</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get video parameter from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoParam = urlParams.get('video');
+            
+            if (videoParam) {
+                // Set video source
+                const videoPath = '../assets/video/' + videoParam;
+                document.getElementById('video-source').src = videoPath;
+                
+                // Set title based on video name (remove .mp4 extension)
+                const videoTitle = videoParam.replace('.mp4', '');
+                document.getElementById('video-title').textContent = videoTitle;
+                
+                // Load the video
+                const videoPlayer = document.getElementById('video-player');
+                videoPlayer.load();
+                
+                // Check if this video has been watched before
+                const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '{}');
+                if (watchedVideos[videoTitle]) {
+                    document.getElementById('video-status').textContent = '您已经看过此视频';
+                    document.getElementById('video-status').classList.add('watched');
+                }
+
+                // Add event listener for video completion
+                videoPlayer.addEventListener('ended', function() {
+                    // Mark this video as watched
+                    const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '{}');
+                    watchedVideos[videoTitle] = true;
+                    localStorage.setItem('watchedVideos', JSON.stringify(watchedVideos));
+                    
+                    // Update status message
+                    document.getElementById('video-status').textContent = '视频已完成！';
+                    document.getElementById('video-status').classList.add('watched');
+                    
+                    // Show notification
+                    const notification = document.createElement('div');
+                    notification.className = 'notification';
+                    notification.textContent = '视频已完成，新的知识节点已解锁！';
+                    document.body.appendChild(notification);
+                    
+                    // Remove notification after a delay
+                    setTimeout(() => {
+                        notification.classList.add('fade-out');
+                        setTimeout(() => notification.remove(), 500);
+                    }, 3000);
+                });
+            } else {
+                // Handle no video parameter
+                document.getElementById('video-title').textContent = '视频未找到';
+                document.querySelector('.video-wrapper').innerHTML = '<p style="text-align:center;padding:2rem;">未指定视频参数</p>';
+            }
+        });
+    </script>
+    
+    <style>
+        .video-status {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            height: 24px;
+        }
+        
+        .watched {
+            color: green;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 128, 0, 0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fade-in 0.5s ease-out;
+        }
+        
+        .fade-out {
+            animation: fade-out 0.5s ease-in;
+        }
+        
+        @keyframes fade-in {
+            from { opacity: 0; transform: translate(-50%, 20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+        
+        @keyframes fade-out {
+            from { opacity: 1; transform: translate(-50%, 0); }
+            to { opacity: 0; transform: translate(-50%, 20px); }
+        }
+    </style>
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.1.0-beta.1/libs/oversea/index.js"></script>
+    <script src="../assets/js/coze.js"></script>
+    
+</body>
+<footer id="footer" class="footer">
+    <div class="inner">
+      <!-- 右侧内容 -->
+      <div class="foot-right mod">
+        <div class="tt">
+          <h3 class="title">上海财经大学</h3>
+        </div>
+      </div>
+  
+      <!-- 中部内容 -->
+      <div class="foot-center">
+        <p>© 2025 神“智”妙液——神经体液调节共同维持稳态</p>
+        <p>张芳宇 王一羽 倪伟丰</p>
+      </div>
+  
+      <!-- 左侧内容 -->
+      <div class="foot-left">
+        <img src="/assets/images/logo.png" alt="公司Logo">
+        <div class="social-links">
+          <a href="#"><i class="fab fa-weixin"></i></a>
+          <a href="#"><i class="fab fa-weibo"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html> 

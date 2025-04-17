@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程概览</title>
+    <link rel="stylesheet" href="assets/css/coze.css"/>
+    <link rel="stylesheet" href="../assets/css/knowledge-tree.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Override navigation bar styles to match pre-test.html */
+        nav a {
+            padding: 0.8rem 1.5rem;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">主页</a></li>
+                <li><a href="../pre-test.html">课前练习</a></li>
+                <li><a href="knowledge-tree.html" class="active">课程动画</a></li>
+                <li><a href="../concept-map-iframe.html">概念图构建</a></li>
+                <li><a href="../post-test.html">课后习题</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="space"></div>
+    <div class="container">
+        <div class="header">
+            <h1>课程概览</h1>
+            <p class="subtitle">Interactive visualization of structured knowledge</p>
+        </div>
+        <div class="svg-container">
+            <svg id="knowledge-tree" width="800" height="600"></svg>
+        </div>
+        <div class="footer">
+            <p>点击节点探索知识树 - <span style="color: #ff6b6b; font-weight: bold;">红色节点</span> 表示有相应的教学视频，点击可观看</p>
+        </div>
+    </div>
+
+    <div class="progress-indicator">
+        <h3>学习进度</h3>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div id="progress-text" class="progress-text">0/4 视频已观看</div>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="../assets/js/knowledge-tree.js"></script>
+
+    <script>
+        // Update progress indicator
+        document.addEventListener('DOMContentLoaded', function() {
+            // Define video nodes 
+            const videoNodes = ['炎热状态下的体温调节', '寒冷状态下的体温调节', '主动补水', '肾小管重吸收'];
+            const totalVideos = videoNodes.length;
+            
+            // Get watched videos from localStorage
+            const watchedVideos = JSON.parse(localStorage.getItem('watchedVideos') || '{}');
+            
+            // Count how many videos have been watched
+            let watchedCount = 0;
+            videoNodes.forEach(node => {
+                if (watchedVideos[node]) {
+                    watchedCount++;
+                }
+            });
+            
+            // Update progress indicator
+            const progressPercentage = (watchedCount / totalVideos) * 100;
+            document.getElementById('progress-fill').style.width = progressPercentage + '%';
+            document.getElementById('progress-text').textContent = watchedCount + '/' + totalVideos + ' 视频已观看';
+            
+            // Add reset button for testing purposes
+            const resetButton = document.createElement('button');
+            resetButton.textContent = '重置学习进度';
+            resetButton.style.marginTop = '10px';
+            resetButton.style.padding = '5px 10px';
+            resetButton.style.borderRadius = '4px';
+            resetButton.style.border = '1px solid #ddd';
+            resetButton.style.background = '#f5f5f5';
+            resetButton.style.cursor = 'pointer';
+            resetButton.style.fontSize = '0.8rem';
+            
+            resetButton.addEventListener('click', function() {
+                localStorage.removeItem('watchedVideos');
+                window.location.reload();
+            });
+            
+            document.querySelector('.progress-indicator').appendChild(resetButton);
+        });
+    </script>
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.1.0-beta.1/libs/oversea/index.js"></script>
+    <script src="../assets/js/coze.js"></script>
+    
+</body>
+
+
+</html> 
